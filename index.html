@@ -1,11 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="es">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Gira entre álbumes y demuestra cuánto sabes de la música de tus artistas favoritos."
+  />
+  <title>Frecuencia — Adivina la canción</title>
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
+  <link rel="stylesheet" href="estilo.css" />
+  <script src="juego.js" defer></script>
 </head>
 <body>
-    <h1 class="animate__animated animate__bounce">Cultura de la música</h1>
-    <div class="animate__animated animate__bounce animate__delay-2s">Example</div>
+  <header class="site-header">
+    <a class="brand" href="#" id="home-link" aria-label="Frecuencia, ir al inicio">
+      <span class="brand-mark" aria-hidden="true">F</span>
+      <span>frecuencia<span class="brand-period">.</span></span>
+    </a>
+    <p class="header-note">Un juego para escuchar con atención</p>
+  </header>
+
+  <main>
+    <section class="screen home-screen" id="home-screen">
+      <div class="intro">
+        <p class="eyebrow"><span class="eyebrow-line"></span> FANZINE MUSICAL · N.º 01</p>
+        <h1 class="animate__animated animate__fadeInDown">¿Reconoces la<br /><span>frecuencia?</span></h1>
+        <p class="intro-copy">
+          Tres álbumes iguales hacen sonar una pista. Escucha, elige la canción y demuestra
+          cuánto sabes.
+        </p>
+      </div>
+      <div class="artist-heading">
+        <h2 class="animate__animated animate__fadeInLeft">Elige tu artista</h2>
+        <span>01 — 03</span>
+      </div>
+      <div class="artist-list" id="artist-list" aria-label="Artistas disponibles"></div>
+      <p class="home-footnote">Ponte los audífonos. La primera pista está cerca.</p>
+    </section>
+
+    <section class="screen game-screen" id="game-screen" hidden>
+      <button class="back-link" id="back-button" type="button">
+        <span aria-hidden="true">←</span> Todos los artistas
+      </button>
+      <div class="game-heading">
+        <div>
+          <p class="eyebrow" id="game-eyebrow">BESTIARIO DE ÁLBUMES</p>
+          <h1 id="game-title" class="animate__animated animate__bounceIn"></h1>
+          <p class="game-album" id="game-album"></p>
+        </div>
+        <span class="round-label">RONDA <span>01</span></span>
+      </div>
+
+      <section class="cabinet" aria-labelledby="cabinet-title">
+        <div class="cabinet-topline">
+          <h2 id="cabinet-title" class="animate__animated animate__fadeInRight">Alinea tres portadas</h2>
+          <span class="cabinet-instruction">Tres iguales desbloquean una canción</span>
+        </div>
+        <div class="reels" id="reels" aria-label="Tres portadas de álbumes"></div>
+        <div class="cabinet-bottom">
+          <p class="game-status" id="game-status" aria-live="polite">
+            Gira el bestiario para encontrar una combinación.
+          </p>
+          <button class="spin-button" id="spin-button" type="button">
+            <span class="spin-icon" aria-hidden="true">↻</span>
+            Girar álbumes
+          </button>
+        </div>
+      </section>
+
+      <section class="quiz-panel" id="quiz-panel" hidden aria-labelledby="quiz-title">
+        <div class="quiz-copy">
+          <p class="eyebrow"><span class="sound-dot"></span> PISTA DESBLOQUEADA</p>
+          <h2 id="quiz-title" class="animate__animated animate__tada">¿Qué canción es?</h2>
+          <p>Escucha la pista y elige una de las cinco opciones.</p>
+          <button class="audio-button" id="audio-button" type="button" hidden>
+            <span aria-hidden="true">▶</span> Escuchar pista
+          </button>
+          <p class="audio-status" id="audio-status" aria-live="polite"></p>
+        </div>
+        <div class="answers" id="answers" role="group" aria-label="Opciones de canciones"></div>
+        <p class="answer-status" id="answer-status" aria-live="polite"></p>
+      </section>
+
+      <audio id="song-audio" preload="none"></audio>
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>FRECUENCIA — UN FANZINE INTERACTIVO</span>
+    <span>ESCUCHA · JUEGA · REPITE</span>
+  </footer>
 </body>
+</html>
+
