@@ -1,6 +1,7 @@
 const artists = [
   {
     name: "Daft Punk",
+    page: "daft-punk.html",
     album: "Random Access Memories",
     song: "Instant Crush",
     audio: "audio/instant-crush.mp3",
@@ -15,6 +16,7 @@ const artists = [
   },
   {
     name: "Radiohead",
+    page: "radiohead.html",
     album: "OK Computer",
     song: "Let Down",
     audio: "audio/let-down.mp3",
@@ -29,6 +31,7 @@ const artists = [
   },
   {
     name: "The Strokes",
+    page: "the-strokes.html",
     album: "The New Abnormal",
     song: "Selfless",
     audio: "audio/selfless.mp3",
@@ -53,8 +56,6 @@ const otherSongs = [
 ];
 
 const artistList = document.querySelector("#artist-list");
-const homeScreen = document.querySelector("#home-screen");
-const gameScreen = document.querySelector("#game-screen");
 const reels = document.querySelector("#reels");
 const gameTitle = document.querySelector("#game-title");
 const gameAlbum = document.querySelector("#game-album");
@@ -67,6 +68,8 @@ const songAudio = document.querySelector("#song-audio");
 const audioButton = document.querySelector("#audio-button");
 const audioStatus = document.querySelector("#audio-status");
 const confetti = document.querySelector("#confetti");
+
+const pageArtist = document.body.dataset.artist;
 
 let selectedArtist;
 let isSpinning = false;
@@ -89,14 +92,14 @@ function renderArtists() {
   artistList.innerHTML = artists
     .map(
       (artist, index) => `
-      <button class="artist-card artist-${artist.color}" type="button" data-artist="${index}">
+      <a class="artist-card artist-${artist.color}" href="${artist.page}">
         <span class="artist-number">0${index + 1}</span>
         <span class="artist-info">
           <span class="artist-name">${artist.name}</span>
           <span class="artist-album">${artist.album}</span>
         </span>
         <span class="artist-arrow" aria-hidden="true">↗</span>
-      </button>`,
+      </a>`,
     )
     .join("");
 }
@@ -116,29 +119,14 @@ function renderReels(albums = [0, 1, 2]) {
     .join("");
 }
 
-function openArtist(index) {
+function startGame(index) {
   selectedArtist = artists[index];
-  homeScreen.hidden = true;
-  gameScreen.hidden = false;
   gameTitle.textContent = selectedArtist.name;
   gameAlbum.textContent = `Álbum destacado: ${selectedArtist.album}`;
-  document.querySelector("#game-eyebrow").textContent = "BESTIARIO DE ÁLBUMES";
   renderReels();
   resetQuiz();
   gameStatus.textContent = "Gira el bestiario para encontrar una combinación.";
   spinButton.disabled = false;
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function closeGame() {
-  clearSpinTimers();
-  songAudio.pause();
-  songAudio.removeAttribute("src");
-  songAudio.load();
-  selectedArtist = undefined;
-  gameScreen.hidden = true;
-  homeScreen.hidden = false;
-  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function resetQuiz() {
@@ -304,31 +292,25 @@ function launchConfetti() {
   window.setTimeout(() => confetti.replaceChildren(), 2400);
 }
 
-artistList.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-artist]");
-  if (button) openArtist(Number(button.dataset.artist));
-});
+if (artistList) {
+  renderArtists();
+}
 
-document.querySelector("#back-button").addEventListener("click", closeGame);
+if (pageArtist !== undefined) {
+  startGame(Number(pageArtist));
 
-document.querySelector("#home-link").addEventListener("click", (event) => {
-  event.preventDefault();
-  if (selectedArtist) closeGame();
-});
+  spinButton.addEventListener("click", spinReels);
+  answers.addEventListener("click", chooseAnswer);
 
-spinButton.addEventListener("click", spinReels);
-answers.addEventListener("click", chooseAnswer);
-
-audioButton.addEventListener("click", () => {
-  songAudio.play().catch(() => {
-    audioStatus.textContent = `No se pudo cargar la pista. Revisa ${selectedArtist.audio}.`;
+  audioButton.addEventListener("click", () => {
+    songAudio.play().catch(() => {
+      audioStatus.textContent = `No se pudo cargar la pista. Revisa ${selectedArtist.audio}.`;
+    });
   });
-});
 
-songAudio.addEventListener("error", () => {
-  if (selectedArtist && !quizPanel.hidden) {
-    audioStatus.textContent = `Añade ${selectedArtist.audio} para escuchar la pista.`;
-  }
-});
-
-renderArtists();
+  songAudio.addEventListener("error", () => {
+    if (selectedArtist && !quizPanel.hidden) {
+      audioStatus.textContent = `Añade ${selectedArtist.audio} para escuchar la pista.`;
+    }
+  });
+}

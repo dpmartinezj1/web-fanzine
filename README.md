@@ -6,3 +6,4 @@ Añadi el estilo
 añadí juego.js
 añadi canciones y fotos de albums
 index y bibliotecas en los titulos
+dividi cada codigo de los artistas en paginas diferentes para tener las 5 paginas requeridas
