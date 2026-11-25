@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Gira entre álbumes y demuestra cuánto sabes de la música de tus artistas favoritos."
+  />
+  <title>Daft Punk — Frecuencia</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <link rel="stylesheet" href="estilo.css" />
+  <script src="juego.js" defer></script>
+</head>
+<body data-artist="0">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Frecuencia, ir al inicio">
+      <span class="brand-mark" aria-hidden="true">F</span>
+      <span>frecuencia<span class="brand-period">.</span></span>
+    </a>
+    <p class="header-note">Un juego para escuchar con atención</p>
+  </header>
+
+  <main>
+    <section class="screen game-screen" id="game-screen">
+      <a class="back-link" href="index.html">
+        <span aria-hidden="true">←</span> Todos los artistas
+      </a>
+      <div class="game-heading">
+        <div>
+          <p class="eyebrow" id="game-eyebrow">BESTIARIO DE ÁLBUMES</p>
+          <h1 id="game-title" class="animate__animated animate__bounceIn"></h1>
+          <p class="game-album" id="game-album"></p>
+        </div>
+        <span class="round-label">RONDA <span>01</span></span>
+      </div>
+
+      <section class="cabinet" aria-labelledby="cabinet-title">
+        <div class="cabinet-topline">
+          <h2 id="cabinet-title" class="animate__animated animate__fadeInRight">Alinea tres portadas</h2>
+          <span class="cabinet-instruction">Tres iguales desbloquean una canción</span>
+        </div>
+        <div class="reels" id="reels" aria-label="Tres portadas de álbumes"></div>
+        <div class="cabinet-bottom">
+          <p class="game-status" id="game-status" aria-live="polite">
+            Gira el bestiario para encontrar una combinación.
+          </p>
+          <button class="spin-button" id="spin-button" type="button">
+            <span class="spin-icon" aria-hidden="true">↻</span>
+            Girar álbumes
+          </button>
+        </div>
+      </section>
+
+      <section class="quiz-panel" id="quiz-panel" hidden aria-labelledby="quiz-title">
+        <div class="quiz-copy">
+          <p class="eyebrow"><span class="sound-dot"></span> PISTA DESBLOQUEADA</p>
+          <h2 id="quiz-title" class="animate__animated animate__tada">¿Qué canción es?</h2>
+          <p>Escucha la pista y elige una de las cinco opciones.</p>
+          <button class="audio-button" id="audio-button" type="button" hidden>
+            <span aria-hidden="true">▶</span> Escuchar pista
+          </button>
+          <p class="audio-status" id="audio-status" aria-live="polite"></p>
+        </div>
+        <div class="answers" id="answers" role="group" aria-label="Opciones de canciones"></div>
+        <p class="answer-status" id="answer-status" aria-live="polite"></p>
+      </section>
+
+      <audio id="song-audio" preload="none"></audio>
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>FRECUENCIA — UN FANZINE INTERACTIVO</span>
+    <span class="footer-links">
+      <a href="index.html">INICIO</a> ·
+      <a href="daft-punk.html">DAFT PUNK</a> ·
+      <a href="radiohead.html">RADIOHEAD</a> ·
+      <a href="the-strokes.html">THE STROKES</a> ·
+      <a href="sobre.html">SOBRE</a>
+    </span>
+  </footer>
+</body>
+</html>
+
